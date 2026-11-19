@@ -91,11 +91,22 @@ export default function Home() {
 
   return (
     <main className="container">
+      {/* ক্যামেরা এখন উপরের দিক থেকে খুলবে */}
+      {scanningFor && (
+        <div className="scanner-top">
+          <div className="scanner-top-head">
+            <span>📷 {scanningFor === 'item' ? 'আইটেম কোড স্ক্যান করো' : 'ইউনিক কোড স্ক্যান করো'}</span>
+            <button className="close-btn" onClick={() => setScanningFor(null)}>✕</button>
+          </div>
+          <div id="reader"></div>
+          <p className="scanner-hint">কোডটা ক্যামেরার সামনে ধরো</p>
+        </div>
+      )}
+
       <h1>📷 কোড স্ক্যানার</h1>
       <p className="sub">আইটেম কোড + ইউনিক কোড স্ক্যান করো, তারপর এক্সপোর্ট করো</p>
 
       <div className="card">
-        {/* উপরে দুইটা ইনপুট পাশাপাশি */}
         <div className="inputs-row">
           <div className="field">
             <label>আইটেম কোড</label>
@@ -128,16 +139,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ক্যামেরা - ইনপুটের নিচে, সেভ বাটনের উপরে */}
-        {scanningFor && (
-          <div className="scanner-box">
-            <p>ক্যামেরার সামনে কোড ধরো... ({scanningFor === 'item' ? 'আইটেম কোড' : 'ইউনিক কোড'})</p>
-            <div id="reader"></div>
-            <button className="btn gray" onClick={() => setScanningFor(null)}>বন্ধ করো</button>
-          </div>
-        )}
-
-        {/* সেভ বাটন */}
         <button className="btn green big" onClick={addPair}>+ সেভ করো</button>
       </div>
 
