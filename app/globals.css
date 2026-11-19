@@ -1,20 +1,38 @@
 * { box-sizing: border-box; }
 body { margin: 0; font-family: sans-serif; background: #f4f6f8; color: #111; }
-.container { max-width: 720px; margin: 0 auto; padding: 20px; }
-h1 { margin: 0; }
-.sub { color: #666; }
-.card { background: #fff; padding: 18px; border-radius: 12px; margin: 16px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
-label { font-weight: 700; display: block; margin: 14px 0 6px; }
-.row { display: flex; gap: 8px; }
-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+.container { max-width: 720px; margin: 0 auto; padding: 16px; }
+h1 { margin: 0; font-size: 24px; }
+.sub { color: #666; margin: 6px 0 0; }
+.card { background: #fff; padding: 16px; border-radius: 14px; margin: 16px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+
+/* উপরে ২টা বক্স পাশাপাশি */
+.inputs-row { display: flex; gap: 10px; }
+.field { flex: 1; }
+.field label { font-weight: 700; display: block; margin: 0 0 6px; font-size: 13px; }
+
+/* ইনপুটের ভিতরে বামে + ডানে ছোট আইকন */
+.input-wrap { position: relative; display: flex; align-items: center; }
+.input-wrap input { width: 100%; padding: 12px 42px 12px 36px; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; outline: none; }
+.input-wrap input:focus { border-color: #2563eb; }
+.icon-left { position: absolute; left: 10px; font-size: 16px; pointer-events: none; }
+.icon-btn { position: absolute; right: 4px; width: 32px; height: 32px; border: none; background: #eef2ff; border-radius: 8px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.icon-btn:active { background: #dbeafe; }
+
+.scanner-box { margin-top: 14px; background: #f8fafc; padding: 12px; border-radius: 10px; text-align: center; }
+#reader { max-width: 320px; margin: 0 auto; }
+
 .btn { padding: 11px 16px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; }
-.btn.blue { background: #2563eb; color: #fff; }
 .btn.green { background: #16a34a; color: #fff; }
 .btn.red { background: #ef4444; color: #fff; margin-left: 8px; }
 .btn.gray { background: #e5e7eb; margin-top: 10px; }
-.btn.big { width: 100%; margin-top: 16px; font-size: 17px; }
-.scanner-box { margin-top: 16px; background: #f8fafc; padding: 12px; border-radius: 10px; text-align: center; }
-#reader { max-width: 320px; margin: 0 auto; }
-.top-bar { display: flex; justify-content: space-between; align-items: center; }
+.btn.big { width: 100%; margin-top: 14px; font-size: 17px; padding: 14px; }
+
+.top-bar { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 table { width: 100%; background: #fff; border-collapse: collapse; border-radius: 12px; overflow: hidden; }
 th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; font-size: 14px; }
+
+/* মোবাইলে একটু ছোট হলেও পাশাপাশিই থাকবে */
+@media (max-width: 420px) {
+  .inputs-row { gap: 6px; }
+  .input-wrap input { font-size: 13px; padding: 11px 36px 11px 30px; }
+}
