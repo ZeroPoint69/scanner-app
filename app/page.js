@@ -5,21 +5,18 @@ export default function Home() {
   const [scans, setScans] = useState([]);
   const [itemCode, setItemCode] = useState('');
   const [uniqueCode, setUniqueCode] = useState('');
-  const [scanningFor, setScanningFor] = useState(null); // 'item' | 'unique' | null
+  const [scanningFor, setScanningFor] = useState(null);
   const scannerRef = useRef(null);
 
-  // Load from localStorage
   useEffect(() => {
     const saved = localStorage.getItem('scans');
     if (saved) setScans(JSON.parse(saved));
   }, []);
 
-  // Save to localStorage
   useEffect(() => {
     localStorage.setItem('scans', JSON.stringify(scans));
   }, [scans]);
 
-  // Scanner start
   useEffect(() => {
     if (!scanningFor) return;
     let cancelled = false;
@@ -98,18 +95,40 @@ export default function Home() {
       <p className="sub">আইটেম কোড + ইউনিক কোড স্ক্যান করো, তারপর এক্সপোর্ট করো</p>
 
       <div className="card">
-        <label>১. আইটেম কোড</label>
-        <div className="row">
-          <input value={itemCode} onChange={(e) => setItemCode(e.target.value)} placeholder="আইটেম কোড লিখো বা স্ক্যান করো" />
-          <button className="btn blue" onClick={() => setScanningFor('item')}>স্ক্যান</button>
+        {/* উপরে দুইটা ইনপুট পাশাপাশি */}
+        <div className="inputs-row">
+          <div className="field">
+            <label>আইটেম কোড</label>
+            <div className="input-wrap">
+              <span className="icon-left">🏷️</span>
+              <input
+                value={itemCode}
+                onChange={(e) => setItemCode(e.target.value)}
+                placeholder="আইটেম কোড"
+              />
+              <button className="icon-btn" onClick={() => setScanningFor('item')} title="স্ক্যান">
+                📷
+              </button>
+            </div>
+          </div>
+
+          <div className="field">
+            <label>ইউনিক কোড</label>
+            <div className="input-wrap">
+              <span className="icon-left">🔖</span>
+              <input
+                value={uniqueCode}
+                onChange={(e) => setUniqueCode(e.target.value)}
+                placeholder="ইউনিক কোড"
+              />
+              <button className="icon-btn" onClick={() => setScanningFor('unique')} title="স্ক্যান">
+                📷
+              </button>
+            </div>
+          </div>
         </div>
 
-        <label>২. ইউনিক কোড</label>
-        <div className="row">
-          <input value={uniqueCode} onChange={(e) => setUniqueCode(e.target.value)} placeholder="ইউনিক কোড লিখো বা স্ক্যান করো" />
-          <button className="btn blue" onClick={() => setScanningFor('unique')}>স্ক্যান</button>
-        </div>
-
+        {/* ক্যামেরা - ইনপুটের নিচে, সেভ বাটনের উপরে */}
         {scanningFor && (
           <div className="scanner-box">
             <p>ক্যামেরার সামনে কোড ধরো... ({scanningFor === 'item' ? 'আইটেম কোড' : 'ইউনিক কোড'})</p>
@@ -118,6 +137,7 @@ export default function Home() {
           </div>
         )}
 
+        {/* সেভ বাটন */}
         <button className="btn green big" onClick={addPair}>+ সেভ করো</button>
       </div>
 
@@ -125,7 +145,7 @@ export default function Home() {
         <h3>স্ক্যান লিস্ট ({scans.length} টা)</h3>
         <div>
           <button className="btn green" onClick={exportCSV}>⬇ Export CSV</button>
-          <button className="btn red" onClick={clearAll}>Clear All</button>
+          <button className="btn red" onClick={clearAll}>Clear</button>
         </div>
       </div>
 
